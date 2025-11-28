@@ -62,7 +62,7 @@ export const translations = {
     // Navbar
     home: "Home",
     cart: "Cart",
-    dashboard: "Statistics",
+    dashboard: "Dashboard",
     welcome: "Welcome",
     logout: "Exit",
     login: "Login",

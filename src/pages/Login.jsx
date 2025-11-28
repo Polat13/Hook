@@ -1,5 +1,6 @@
 import React from "react";
 import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import { LanguageContext } from "../context/LanguageContext";
 import { ThemeContext } from "../context/ThemeContext";
@@ -8,6 +9,7 @@ export function Login() {
   const { login } = useContext(AuthContext);
   const { t } = useContext(LanguageContext);
   const { dark } = useContext(ThemeContext);
+  const navigate = useNavigate();
   const [name, setName] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [error, setError] = React.useState("");
@@ -25,6 +27,7 @@ export function Login() {
     login(name, password);
     setName("");
     setPassword("");
+    navigate("/");
   };
 
   return (
