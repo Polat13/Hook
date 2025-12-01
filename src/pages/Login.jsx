@@ -1,4 +1,5 @@
 import React from "react";
+import useDocumentTitle from "../hooks/useDocumentTitle";
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
@@ -6,6 +7,8 @@ import { LanguageContext } from "../context/LanguageContext";
 import { ThemeContext } from "../context/ThemeContext";
 
 export function Login() {
+useDocumentTitle("Giriş Yap");
+
   const { login } = useContext(AuthContext);
   const { t } = useContext(LanguageContext);
   const { dark } = useContext(ThemeContext);

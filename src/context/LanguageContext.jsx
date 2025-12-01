@@ -55,7 +55,7 @@ export const translations = {
     delete: "✕ Sil",
     productId: "Ürün ID",
     selectProduct: "📦 Ürün Seçin",
-    productsLoaded: "✅ Ürünler Yüklendi",
+    productsLoaded: " Ürünler Yüklendi",
     isLoading: "yükleniyor..."
   },
   en: {
@@ -108,7 +108,7 @@ export const translations = {
     delete: "✕ Delete",
     productId: "Product ID",
     selectProduct: "📦 Select Product",
-    productsLoaded: "✅ Products Loaded",
+    productsLoaded: "Products Loaded",
     isLoading: "loading..."
   }
 };
