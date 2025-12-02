@@ -5,7 +5,7 @@ import { LanguageContext } from "../context/LanguageContext";
 import { ThemeContext } from "../context/ThemeContext";
 import useFakeData, { fakeProducts } from "../hooks/useFakeData";
 
-export function Cart() {
+export function Card() {
   const { cart, addToCart, removeFromCart } = useContext(CartContext);
   const { t } = useContext(LanguageContext);
   const { dark } = useContext(ThemeContext);
@@ -22,7 +22,7 @@ export function Cart() {
   }, [loadedProducts]);
 
   return (
-    <div className={`min-h-screen ${dark ? "bg-gray-900" : "bg-linear-to-br from-indigo-50 to-purple-50"} py-12 px-4 transition`}>
+    <div className={`min-h-auto ${dark ? "bg-gray-900" : "bg-linear-to-br from-indigo-50 to-purple-50"} py-12 px-4 transition`}>
       <div className="max-w-4xl mx-auto">
         <h1 className="text-5xl font-bold bg-linear-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent mb-12 text-center">
           {t.cartTitle}
@@ -92,4 +92,4 @@ export function Cart() {
     </div>
   );
 }
-export default Cart;
+export default Card;

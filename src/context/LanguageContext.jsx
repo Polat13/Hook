@@ -3,7 +3,6 @@ import { createContext, useState } from "react";
 
 export const LanguageContext = createContext();
 
-// Tüm çeviriler burada merkezi olarak yönetiliyor
 export const translations = {
   tr: {
     // Navbar

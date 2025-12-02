@@ -11,7 +11,7 @@ export function Home() {
   const { dark } = useContext(ThemeContext);
 
   return (
-    <div className={`min-h-screen ${dark ? "bg-gray-900" : "bg-linear-to-br from-indigo-50 to-purple-50"} flex items-center justify-center py-12 px-4 transition`}>
+    <div className={`min-h-auto ${dark ? "bg-gray-900" : "bg-linear-to-br from-indigo-50 to-purple-50"} flex items-center justify-center py-40 transition `}>
       <div className="w-full max-w-2xl">
         <div className={`${dark ? "bg-gray-800 text-white" : "bg-white text-gray-900"} rounded-2xl shadow-2xl p-8 md:p-12 transition`}>
           <h1 className="text-5xl font-bold bg-linear-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent mb-6 text-center">
