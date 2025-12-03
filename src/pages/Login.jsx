@@ -34,7 +34,7 @@ useDocumentTitle("Giriş Yap");
   };
 
   return (
-    <div className={`min-h-auto ${dark ? "bg-gray-900" : "bg-linear-to-br from-indigo-50 to-purple-50"} flex items-center justify-center py-12 px-4 transition`}>
+    <div className={`page-fixed ${dark ? "bg-gray-900" : "bg-linear-to-br from-indigo-50 to-purple-50"} flex items-center justify-center px-4 transition`}>
       <div className="w-full max-w-md">
         <div className={`${dark ? "bg-gray-800 text-white" : "bg-white"} rounded-2xl shadow-2xl p-8 transition`}>
           <h1 className="text-4xl font-bold text-center bg-linear-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent mb-2">

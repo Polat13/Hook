@@ -1,1 +1,42 @@
 @import "tailwindcss";
+
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+#root {
+  overflow: hidden;
+}
+
+/* Sayfaya özel scroll class'ları */
+.page-fixed {
+  height: 100vh;
+  overflow: hidden;
+}
+
+.page-scrollable {
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-bottom: 120px;
+}
+
+/* Scrollbar styling */
+.page-scrollable::-webkit-scrollbar {
+  width: 8px;
+}
+
+.page-scrollable::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.page-scrollable::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+}
+
+.page-scrollable::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.5);
+}

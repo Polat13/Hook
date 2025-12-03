@@ -13,7 +13,7 @@ export function Dashboard() {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
-    <div className={`min-h-auto ${dark ? "bg-gray-900" : "bg-linear-to-br from-indigo-50 to-purple-50"} py-12 px-4 transition`}>
+    <div className={`page-scrollable ${dark ? "bg-gray-900" : "bg-linear-to-br from-indigo-50 to-purple-50"} py-12 px-4 transition`}>
       <div className="max-w-6xl mx-auto">
         <h1 className="text-5xl font-bold bg-linear-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent mb-12 text-center">
           {t.dashboardTitle}
