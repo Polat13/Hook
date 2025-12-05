@@ -1,0 +1,7 @@
+[
+  { "id": 101, "name": "Laptop Pro", "price": 2999 },
+  { "id": 102, "name": "Kablosuz Mouse", "price": 29 },
+  { "id": 103, "name": "Mekanik Klavye", "price": 149 },
+  { "id": 104, "name": "4K Monitor", "price": 599 },
+  { "id": 105, "name": "USB-C Hub", "price": 49 }
+]

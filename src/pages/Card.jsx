@@ -1,28 +1,61 @@
 import React from "react";
-import { useContext, useState, useEffect } from "react";
-import { CartContext } from "../context/CardContext";
-import { LanguageContext } from "../context/LanguageContext";
-import { ThemeContext } from "../context/ThemeContext";
-import useFakeData, { fakeProducts } from "../hooks/useFakeData";
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart, removeFromCart } from "../store/slices/cartSlice";
+import { fetchProducts } from "../store/slices/dataSlice";
+import { 
+  selectCartItems, 
+  selectLanguage, 
+  selectIsDark, 
+  selectProducts, 
+  selectDataLoading 
+} from "../store/selectors";
 
 export function Card() {
-  const { cart, addToCart, removeFromCart } = useContext(CartContext);
-  const { t } = useContext(LanguageContext);
-  const { dark } = useContext(ThemeContext);
-  const [isLoading, setIsLoading] = useState(true);
-  const [availableProducts, setAvailableProducts] = useState([]);
-
-  const loadedProducts = useFakeData(fakeProducts, 1500);
+  const dispatch = useDispatch();
+  const cart = useSelector(selectCartItems);
+  const lang = useSelector(selectLanguage);
+  const isDark = useSelector(selectIsDark);
+  const availableProducts = useSelector(selectProducts);
+  const isLoading = useSelector(selectDataLoading);
 
   useEffect(() => {
-    if (loadedProducts) {
-      setAvailableProducts(loadedProducts);
-      setIsLoading(false);
+    if (availableProducts.length === 0) {
+      dispatch(fetchProducts());
     }
-  }, [loadedProducts]);
+  }, [dispatch, availableProducts.length]);
+
+  const translations = {
+    TR: {
+      cartTitle: "Alışveriş Sepeti",
+      addProduct: "Ürün",
+      isLoading: "Yükleniyor...",
+      selectProduct: "Ürün Seç",
+      productsLoaded: "Ürün Yüklendi",
+      emptyCart: "Sepetiniz boş 🛒",
+      productId: "Ürün ID",
+      delete: "Sil",
+      totalItems: "Toplam Ürün",
+      buy: "Satın Al",
+    },
+    EN: {
+      cartTitle: "Shopping Cart",
+      addProduct: "Product",
+      isLoading: "Loading...",
+      selectProduct: "Select Product",
+      productsLoaded: "Products Loaded",
+      emptyCart: "Your cart is empty 🛒",
+      productId: "Product ID",
+      delete: "Delete",
+      totalItems: "Total Items",
+      buy: "Buy Now",
+    },
+  };
+
+  const t = translations[lang] || translations.TR;
 
   return (
-    <div className={`page-scrollable ${dark ? "bg-gray-900" : "bg-linear-to-br from-indigo-50 to-purple-50"} py-12 px-4 transition`}>
+    <div className={`page-scrollable ${isDark ? "bg-gray-900" : "bg-linear-to-br from-indigo-50 to-purple-50"} py-12 px-4 transition`}>
       <div className="max-w-4xl mx-auto">
         <h1 className="text-5xl font-bold bg-linear-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent mb-12 text-center">
           {t.cartTitle}
@@ -38,11 +71,11 @@ export function Card() {
               onChange={(e) => {
                 const product = availableProducts.find(p => p.id === parseInt(e.target.value));
                 if (product) {
-                  addToCart({ ...product, cartId: Date.now() });
+                  dispatch(addToCart(product));
                   e.target.value = "";
                 }
               }}
-              className={`w-full mb-4 p-3 rounded-lg font-semibold border-2 transition ${dark ? "bg-gray-800 text-white border-indigo-600" : "bg-white text-gray-800 border-indigo-300"}`}
+              className={`w-full mb-4 p-3 rounded-lg font-semibold border-2 transition ${isDark ? "bg-gray-800 text-white border-indigo-600" : "bg-white text-gray-800 border-indigo-300"}`}
             >
               <option value="">{t.selectProduct}</option>
               {availableProducts.map((product) => (
@@ -58,22 +91,22 @@ export function Card() {
         )}
 
         {cart.length === 0 ? (
-          <div className={`${dark ? "bg-gray-800 text-white" : "bg-white"} rounded-2xl shadow-xl p-12 text-center transition`}>
-            <p className={`${dark ? "text-gray-300" : "text-gray-600"} text-xl`}>{t.emptyCart}</p>
+          <div className={`${isDark ? "bg-gray-800 text-white" : "bg-white"} rounded-2xl shadow-xl p-12 text-center transition`}>
+            <p className={`${isDark ? "text-gray-300" : "text-gray-600"} text-xl`}>{t.emptyCart}</p>
           </div>
         ) : (
           <div className="grid gap-4">
             {cart.map((item, index) => (
-              <div key={item.id} className={`${dark ? "bg-gray-800 hover:bg-gray-700" : "bg-white hover:shadow-2xl"} rounded-xl shadow-lg p-6 flex justify-between items-center transition`}>
+              <div key={item.cartItemId} className={`${isDark ? "bg-gray-800 hover:bg-gray-700" : "bg-white hover:shadow-2xl"} rounded-xl shadow-lg p-6 flex justify-between items-center transition`}>
                 <div className="flex items-center gap-4 flex-1">
-                  <span className={`text-2xl font-bold ${dark ? "bg-indigo-900 text-indigo-200" : "bg-indigo-100 text-indigo-600"} rounded-full w-12 h-12 flex items-center justify-center`}>{index + 1}</span>
+                  <span className={`text-2xl font-bold ${isDark ? "bg-indigo-900 text-indigo-200" : "bg-indigo-100 text-indigo-600"} rounded-full w-12 h-12 flex items-center justify-center`}>{index + 1}</span>
                   <div>
-                    <p className={`text-xl font-semibold ${dark ? "text-white" : "text-gray-800"}`}>{item.name}</p>
-                    <p className={`${dark ? "text-gray-400" : "text-gray-500"} text-sm`}>{t.productId}: {item.id}</p>
+                    <p className={`text-xl font-semibold ${isDark ? "text-white" : "text-gray-800"}`}>{item.name}</p>
+                    <p className={`${isDark ? "text-gray-400" : "text-gray-500"} text-sm`}>{t.productId}: {item.id}</p>
                   </div>
                 </div>
                 <button 
-                  onClick={() => removeFromCart(item.id)}
+                  onClick={() => dispatch(removeFromCart(item.cartItemId))}
                   className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg font-bold transition transform hover:scale-105"
                 >
                   {t.delete}

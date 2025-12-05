@@ -1,67 +1,96 @@
 import React from "react";
 import useDocumentTitle from "../hooks/useDocumentTitle";
-import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../context/AuthContext";
-import { LanguageContext } from "../context/LanguageContext";
-import { ThemeContext } from "../context/ThemeContext";
+import { useDispatch, useSelector } from "react-redux";
+import { login as loginAction } from "../store/slices/authSlice";
+import { selectIsDark, selectLanguage } from "../store/selectors";
 
 export function Login() {
-useDocumentTitle("Giriş Yap");
+  useDocumentTitle("Giriş Yap");
 
-  const { login } = useContext(AuthContext);
-  const { t } = useContext(LanguageContext);
-  const { dark } = useContext(ThemeContext);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const isDark = useSelector(selectIsDark);
+  const lang = useSelector(selectLanguage);
+  
   const [name, setName] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [error, setError] = React.useState("");
 
+  // Dil çevirilerini tanımla
+  const translations = {
+    TR: {
+      loginTitle: "Hoş Geldiniz",
+      loginSubtitle: "Lütfen giriş yapın",
+      username: "Kullanıcı Adı",
+      password: "Şifre",
+      loginBtn: "Giriş Yap",
+      noAccount: "Hesabın yok mu?",
+      signup: "Kaydol",
+      usernameRequired: "Kullanıcı adı gerekli",
+      passwordRequired: "Şifre gerekli",
+    },
+    EN: {
+      loginTitle: "Welcome",
+      loginSubtitle: "Please log in",
+      username: "Username",
+      password: "Password",
+      loginBtn: "Log In",
+      noAccount: "Don't have an account?",
+      signup: "Sign up",
+      usernameRequired: "Username is required",
+      passwordRequired: "Password is required",
+    },
+  };
+
+  const t = translations[lang] || translations.TR;
+
   const handleLogin = () => {
     setError("");
     if (!name.trim()) {
-      setError(t.usernameRequired || "Kullanıcı adı gerekli");
+      setError(t.usernameRequired);
       return;
     }
     if (!password.trim()) {
-      setError(t.passwordRequired || "Şifre gerekli");
+      setError(t.passwordRequired);
       return;
     }
-    login(name, password);
+    
+    dispatch(loginAction({ username: name, password }));
     setName("");
     setPassword("");
     navigate("/");
   };
 
   return (
-    <div className={`page-fixed ${dark ? "bg-gray-900" : "bg-linear-to-br from-indigo-50 to-purple-50"} flex items-center justify-center px-4 transition`}>
+    <div className={`page-fixed ${isDark ? "bg-gray-900" : "bg-linear-to-br from-indigo-50 to-purple-50"} flex items-center justify-center px-4 transition`}>
       <div className="w-full max-w-md">
-        <div className={`${dark ? "bg-gray-800 text-white" : "bg-white"} rounded-2xl shadow-2xl p-8 transition`}>
+        <div className={`${isDark ? "bg-gray-800 text-white" : "bg-white"} rounded-2xl shadow-2xl p-8 transition`}>
           <h1 className="text-4xl font-bold text-center bg-linear-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent mb-2">
             {t.loginTitle}
           </h1>
-          <p className={`${dark ? "text-gray-300" : "text-gray-600"} text-center mb-8`}>{t.loginSubtitle}</p>
+          <p className={`${isDark ? "text-gray-300" : "text-gray-600"} text-center mb-8`}>{t.loginSubtitle}</p>
 
           <div className="space-y-4">
             <div>
-              <label className={`block text-sm font-semibold ${dark ? "text-gray-200" : "text-gray-700"} mb-2`}>{t.username}</label>
+              <label className={`block text-sm font-semibold ${isDark ? "text-gray-200" : "text-gray-700"} mb-2`}>{t.username}</label>
               <input 
                 type="text" 
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder={t.username}
-                className={`w-full px-4 py-3 border-2 ${dark ? "bg-gray-700 border-gray-600 text-white focus:border-indigo-500" : "bg-white border-gray-300 text-gray-900 focus:border-indigo-600"} rounded-lg focus:outline-none transition`}
+                className={`w-full px-4 py-3 border-2 ${isDark ? "bg-gray-700 border-gray-600 text-white focus:border-indigo-500" : "bg-white border-gray-300 text-gray-900 focus:border-indigo-600"} rounded-lg focus:outline-none transition`}
               />
             </div>
             <div>
-              <label className={`block text-sm font-semibold ${dark ? "text-gray-200" : "text-gray-700"} mb-2`}>{t.password}</label>
+              <label className={`block text-sm font-semibold ${isDark ? "text-gray-200" : "text-gray-700"} mb-2`}>{t.password}</label>
               <input 
                 type="password" 
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 onKeyPress={(e) => e.key === 'Enter' && handleLogin()}
                 placeholder="•••••••••"
-                className={`w-full px-4 py-3 border-2 ${dark ? "bg-gray-700 border-gray-600 text-white focus:border-indigo-500" : "bg-white border-gray-300 text-gray-900 focus:border-indigo-600"} rounded-lg focus:outline-none transition`}
+                className={`w-full px-4 py-3 border-2 ${isDark ? "bg-gray-700 border-gray-600 text-white focus:border-indigo-500" : "bg-white border-gray-300 text-gray-900 focus:border-indigo-600"} rounded-lg focus:outline-none transition`}
               />
             </div>
           </div>
@@ -79,7 +108,7 @@ useDocumentTitle("Giriş Yap");
             {t.loginBtn}
           </button>
 
-          <p className={`text-center ${dark ? "text-gray-400" : "text-gray-600"} text-sm mt-4`}>
+          <p className={`text-center ${isDark ? "text-gray-400" : "text-gray-600"} text-sm mt-4`}>
             {t.noAccount} <span className="text-indigo-600 font-bold">{t.signup}</span>
           </p>
         </div>
