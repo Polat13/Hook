@@ -3,12 +3,13 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart, removeFromCart } from "../store/slices/cartSlice";
 import { fetchProducts } from "../store/slices/dataSlice";
-import { 
-  selectCartItems, 
-  selectLanguage, 
-  selectIsDark, 
-  selectProducts, 
-  selectDataLoading 
+import {
+  selectCartItems,
+  selectLanguage,
+  selectIsDark,
+  selectProducts,
+  selectDataLoading,
+  selectDataError
 } from "../store/selectors";
 
 export function Card() {
@@ -18,6 +19,7 @@ export function Card() {
   const isDark = useSelector(selectIsDark);
   const availableProducts = useSelector(selectProducts);
   const isLoading = useSelector(selectDataLoading);
+  const error = useSelector(selectDataError);
 
   useEffect(() => {
     if (availableProducts.length === 0) {
@@ -37,6 +39,8 @@ export function Card() {
       delete: "Sil",
       totalItems: "Toplam Ürün",
       buy: "Satın Al",
+      errorLoading: "Ürünler yüklenirken hata oluştu",
+      retry: "Tekrar Dene",
     },
     EN: {
       cartTitle: "Shopping Cart",
@@ -49,6 +53,8 @@ export function Card() {
       delete: "Delete",
       totalItems: "Total Items",
       buy: "Buy Now",
+      errorLoading: "Error loading products",
+      retry: "Retry",
     },
   };
 
@@ -61,7 +67,17 @@ export function Card() {
           {t.cartTitle}
         </h1>
 
-        {isLoading ? (
+        {error ? (
+          <div className="mb-8 bg-red-500 text-white py-4 px-6 rounded-lg font-bold text-center">
+            <p className="text-lg mb-3">❌ {t.errorLoading}</p>
+            <button
+              onClick={() => dispatch(fetchProducts())}
+              className="bg-white text-red-600 px-6 py-2 rounded-lg font-semibold hover:bg-red-50 transition transform hover:scale-105"
+            >
+              🔄 {t.retry}
+            </button>
+          </div>
+        ) : isLoading ? (
           <div className="w-full mb-8 bg-gray-300 dark:bg-gray-700 text-white py-3 rounded-lg font-bold text-center animate-pulse">
             ⏳ {t.addProduct} {t.isLoading}
           </div>
@@ -105,7 +121,7 @@ export function Card() {
                     <p className={`${isDark ? "text-gray-400" : "text-gray-500"} text-sm`}>{t.productId}: {item.id}</p>
                   </div>
                 </div>
-                <button 
+                <button
                   onClick={() => dispatch(removeFromCart(item.cartItemId))}
                   className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg font-bold transition transform hover:scale-105"
                 >

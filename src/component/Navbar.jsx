@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../store/slices/authSlice";
 import { toggleTheme } from "../store/slices/themeSlice";
-import { selectUser, selectIsAuthenticated, selectIsDark, selectLanguage } from "../store/selectors";
+import { selectUser, selectIsAuthenticated, selectIsDark, selectLanguage, selectCartCount } from "../store/selectors";
 
 export function Navbar() {
   const dispatch = useDispatch();
@@ -12,6 +12,7 @@ export function Navbar() {
   const isAuthenticated = useSelector(selectIsAuthenticated);
   const isDark = useSelector(selectIsDark);
   const lang = useSelector(selectLanguage);
+  const cartCount = useSelector(selectCartCount);
 
   const translations = {
     TR: {
@@ -45,7 +46,14 @@ export function Navbar() {
         <div className="flex justify-between items-center flex-wrap gap-4">
           <div className="flex gap-6 font-semibold">
             <Link to="/" className="hover:text-indigo-200 transition">🏠 {t.home}</Link>
-            <Link to="/cart" className="hover:text-indigo-200 transition">🛒 {t.cart}</Link>
+            <Link to="/cart" className="hover:text-indigo-200 transition relative">
+              🛒 {t.cart}
+              {cartCount > 0 && (
+                <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center animate-pulse">
+                  {cartCount}
+                </span>
+              )}
+            </Link>
             <Link to="/dashboard" className="hover:text-indigo-200 transition">📊 {t.dashboard}</Link>
           </div>
 
