@@ -3,7 +3,8 @@ import useDocumentTitle from "../hooks/useDocumentTitle";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { login as loginAction } from "../store/slices/authSlice";
-import { selectIsDark, selectLanguage } from "../store/selectors";
+import { selectIsDark } from "../store/selectors";
+import useTranslation from "../hooks/useTranslation";
 
 export function Login() {
   useDocumentTitle("Giriş Yap");
@@ -11,51 +12,23 @@ export function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isDark = useSelector(selectIsDark);
-  const lang = useSelector(selectLanguage);
-  
+  const t = useTranslation();
+
   const [name, setName] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [error, setError] = React.useState("");
 
-  // Dil çevirilerini tanımla
-  const translations = {
-    TR: {
-      loginTitle: "Hoş Geldiniz",
-      loginSubtitle: "Lütfen giriş yapın",
-      username: "Kullanıcı Adı",
-      password: "Şifre",
-      loginBtn: "Giriş Yap",
-      noAccount: "Hesabın yok mu?",
-      signup: "Kaydol",
-      usernameRequired: "Kullanıcı adı gerekli",
-      passwordRequired: "Şifre gerekli",
-    },
-    EN: {
-      loginTitle: "Welcome",
-      loginSubtitle: "Please log in",
-      username: "Username",
-      password: "Password",
-      loginBtn: "Log In",
-      noAccount: "Don't have an account?",
-      signup: "Sign up",
-      usernameRequired: "Username is required",
-      passwordRequired: "Password is required",
-    },
-  };
-
-  const t = translations[lang] || translations.TR;
-
   const handleLogin = () => {
     setError("");
     if (!name.trim()) {
-      setError(t.usernameRequired);
+      setError(t.login.usernameRequired);
       return;
     }
     if (!password.trim()) {
-      setError(t.passwordRequired);
+      setError(t.login.passwordRequired);
       return;
     }
-    
+
     dispatch(loginAction({ username: name, password }));
     setName("");
     setPassword("");
@@ -67,25 +40,25 @@ export function Login() {
       <div className="w-full max-w-md">
         <div className={`${isDark ? "bg-gray-800 text-white" : "bg-white"} rounded-2xl shadow-2xl p-8 transition`}>
           <h1 className="text-4xl font-bold text-center bg-linear-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent mb-2">
-            {t.loginTitle}
+            {t.login.loginTitle}
           </h1>
-          <p className={`${isDark ? "text-gray-300" : "text-gray-600"} text-center mb-8`}>{t.loginSubtitle}</p>
+          <p className={`${isDark ? "text-gray-300" : "text-gray-600"} text-center mb-8`}>{t.login.loginSubtitle}</p>
 
           <div className="space-y-4">
             <div>
-              <label className={`block text-sm font-semibold ${isDark ? "text-gray-200" : "text-gray-700"} mb-2`}>{t.username}</label>
-              <input 
-                type="text" 
+              <label className={`block text-sm font-semibold ${isDark ? "text-gray-200" : "text-gray-700"} mb-2`}>{t.login.username}</label>
+              <input
+                type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                placeholder={t.username}
+                placeholder={t.login.username}
                 className={`w-full px-4 py-3 border-2 ${isDark ? "bg-gray-700 border-gray-600 text-white focus:border-indigo-500" : "bg-white border-gray-300 text-gray-900 focus:border-indigo-600"} rounded-lg focus:outline-none transition`}
               />
             </div>
             <div>
-              <label className={`block text-sm font-semibold ${isDark ? "text-gray-200" : "text-gray-700"} mb-2`}>{t.password}</label>
-              <input 
-                type="password" 
+              <label className={`block text-sm font-semibold ${isDark ? "text-gray-200" : "text-gray-700"} mb-2`}>{t.login.password}</label>
+              <input
+                type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 onKeyPress={(e) => e.key === 'Enter' && handleLogin()}
@@ -101,15 +74,15 @@ export function Login() {
             </div>
           )}
 
-          <button 
+          <button
             onClick={handleLogin}
             className="w-full mt-6 bg-linear-to-r from-indigo-600 to-purple-600 text-white py-3 rounded-lg font-bold hover:shadow-lg transition transform hover:scale-105"
           >
-            {t.loginBtn}
+            {t.login.loginBtn}
           </button>
 
           <p className={`text-center ${isDark ? "text-gray-400" : "text-gray-600"} text-sm mt-4`}>
-            {t.noAccount} <span className="text-indigo-600 font-bold">{t.signup}</span>
+            {t.login.noAccount} <span className="text-indigo-600 font-bold">{t.login.signup}</span>
           </p>
         </div>
       </div>

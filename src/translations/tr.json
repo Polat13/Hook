@@ -1,0 +1,58 @@
+{
+    "navbar": {
+        "home": "Ana Sayfa",
+        "cart": "Sepet",
+        "dashboard": "Kontrol Paneli",
+        "welcome": "Hoşgeldin",
+        "logout": "Çıkış Yap",
+        "login": "Giriş Yap"
+    },
+    "home": {
+        "homeTitle": "Hoş Geldiniz",
+        "currentLang": "Aktif Dil",
+        "langNameTr": "Türkçe",
+        "langNameEn": "English"
+    },
+    "cart": {
+        "cartTitle": "Alışveriş Sepeti",
+        "addProduct": "Ürün",
+        "isLoading": "Yükleniyor...",
+        "selectProduct": "Ürün Seç",
+        "productsLoaded": "Ürün Yüklendi",
+        "emptyCart": "Sepetiniz boş 🛒",
+        "productId": "Ürün ID",
+        "delete": "Sil",
+        "totalItems": "Toplam Ürün",
+        "buy": "Satın Al",
+        "errorLoading": "Ürünler yüklenirken hata oluştu",
+        "retry": "Tekrar Dene"
+    },
+    "dashboard": {
+        "dashboardTitle": "Kontrol Paneli",
+        "profile": "Profil Bilgileri",
+        "profileUsername": "Kullanıcı Adı",
+        "password": "Şifre",
+        "notLogged": "Giriş Yapılmadı",
+        "secure": "Şifreleriniz güvende.",
+        "device": "Cihaz Bilgileri",
+        "width": "Genişlik",
+        "height": "Yükseklik",
+        "stats": "İstatistikler",
+        "totalOps": "Toplam İşlem",
+        "activeProjects": "Aktif Projeler",
+        "successRate": "Başarı Oranı",
+        "showPassword": "Göster",
+        "hidePassword": "Gizle"
+    },
+    "login": {
+        "loginTitle": "Hoş Geldiniz",
+        "loginSubtitle": "Lütfen giriş yapın",
+        "username": "Kullanıcı Adı",
+        "password": "Şifre",
+        "loginBtn": "Giriş Yap",
+        "noAccount": "Hesabın yok mu?",
+        "signup": "Kaydol",
+        "usernameRequired": "Kullanıcı adı gerekli",
+        "passwordRequired": "Şifre gerekli"
+    }
+}

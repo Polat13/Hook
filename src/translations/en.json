@@ -1,0 +1,58 @@
+{
+    "navbar": {
+        "home": "Home",
+        "cart": "Cart",
+        "dashboard": "Dashboard",
+        "welcome": "Welcome",
+        "logout": "Log Out",
+        "login": "Log In"
+    },
+    "home": {
+        "homeTitle": "Welcome",
+        "currentLang": "Active Language",
+        "langNameTr": "Turkish",
+        "langNameEn": "English"
+    },
+    "cart": {
+        "cartTitle": "Shopping Cart",
+        "addProduct": "Product",
+        "isLoading": "Loading...",
+        "selectProduct": "Select Product",
+        "productsLoaded": "Products Loaded",
+        "emptyCart": "Your cart is empty 🛒",
+        "productId": "Product ID",
+        "delete": "Delete",
+        "totalItems": "Total Items",
+        "buy": "Buy Now",
+        "errorLoading": "Error loading products",
+        "retry": "Retry"
+    },
+    "dashboard": {
+        "dashboardTitle": "Dashboard",
+        "profile": "Profile Information",
+        "profileUsername": "Username",
+        "password": "Password",
+        "notLogged": "Not Logged In",
+        "secure": "Your passwords are secure.",
+        "device": "Device Information",
+        "width": "Width",
+        "height": "Height",
+        "stats": "Statistics",
+        "totalOps": "Total Operations",
+        "activeProjects": "Active Projects",
+        "successRate": "Success Rate",
+        "showPassword": "Show",
+        "hidePassword": "Hide"
+    },
+    "login": {
+        "loginTitle": "Welcome",
+        "loginSubtitle": "Please log in",
+        "username": "Username",
+        "password": "Password",
+        "loginBtn": "Log In",
+        "noAccount": "Don't have an account?",
+        "signup": "Sign up",
+        "usernameRequired": "Username is required",
+        "passwordRequired": "Password is required"
+    }
+}
